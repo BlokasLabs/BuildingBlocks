@@ -1,0 +1,35 @@
+BuildingBlocks	LITERAL1
+
+# SpiShield.h
+SpiShield	KEYWORD1
+SpiMiniShield	KEYWORD1
+SpiDevice	KEYWORD1
+getNumDevices	KEYWORD2
+getDevice	KEYWORD2
+init	KEYWORD2
+update	KEYWORD2
+MAX_DEVICES	LITERAL1
+
+# Keypad.h
+Keypad	KEYWORD1
+getKeyStates	KEYWORD2
+isKeyDown		KEYWORD2
+setCallback	KEYWORD2
+
+# MiniKeyboard.h
+MiniKeyboard	KEYWORD1
+isNoteDown	KEYWORD2
+isShiftDown	KEYWORD2
+
+# Encoders.h
+Encoders	KEYWORD1
+getValue	KEYWORD2
+isDown		KEYWORD2
+MAX_ENCODERS	LITERAL1
+
+# Pots.h
+Pots	KEYWORD1
+MAX_POTS	LITERAL1
+
+# Mainboard.h
+Mainboard	KEYWORD1
