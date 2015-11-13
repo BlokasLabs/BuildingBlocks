@@ -3,7 +3,7 @@
 #include <SPI.h>
 #include <BuildingBlocks.h>
 
-// Define an instance of MiniKeyboard module.
+// Define an instance of Encoders module.
 Encoders encoders;
 
 // Define an instance of the Mainboard module.
@@ -16,7 +16,7 @@ void setup() {
 	// Initialize the Mainboard module
 	mainboard.init();
 
-	// Set the function which will get called when keyboard events are detected.
+	// Set the function which will get called when encoder events are detected.
 	encoders.setCallback(&onEncEvent);
 }
 
@@ -26,9 +26,9 @@ void loop() {
 }
 
 int16_t clamp(int16_t value, int16_t min, int16_t max) {
-  if (value < min) value = min;
-  else if (value > max) value = max;
-  return value;
+	if (value < min) value = min;
+	else if (value > max) value = max;
+	return value;
 }
 
 // This will get called while executing mainboard.update(), if events were detected.
