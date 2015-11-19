@@ -57,19 +57,15 @@ void spi_disable(void)
 void adc_setup (void)
 {
 	// Set the prescaler to clock/128 & enable ADC
-	ADCSR |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0) | (1 << ADEN);
+	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0) | (1 << ADEN);
+	ADMUX |= 1 << REFS0;
 }
 
-enum { MAX_POTS = 8 };
+enum { MAX_POTS = 4 };
 
 static const uint8_t g_potMap[MAX_POTS] =
 {
-	8, 9, 1, 0, 5, 6, 4, 3
-};
-
-static const uint8_t g_reversePots[MAX_POTS] =
-{
-	0, 1, 1, 1, 0, 0, 0, 0
+	5, 3, 4, 6
 };
 
 static uint16_t g_pots[MAX_POTS];
@@ -79,15 +75,12 @@ uint16_t adc_read(uint8_t pot)
 	ADMUX = g_potMap[pot];
 
 	// Start the conversion
-	ADCSR |= (1 << ADSC);
+	ADCSRA |= (1 << ADSC);
 
 	// Wait for it to finish
-	while (ADCSR & (1 << ADSC));
+	while (ADCSRA & (1 << ADSC));
 
 	uint16_t result = ADC;
-
-	if (g_reversePots[pot])
-		result = 1023 - result;
 
 	return result;
 }
