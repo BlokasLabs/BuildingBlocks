@@ -11,40 +11,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-void spi_init(void)
-{
-	// Initialize to three wire mode, positive edge shift register clock.
-	USICR = (1 << USIWM0) + (1 << USICS1);
-}
-
-uint8_t spi_transfer(uint8_t val)
-{
-	// Set the value to send.
-	USIDR = val;
-
-	// Clear the counter overflow flag.
-	USISR = 1 << USIOIF;
-
-	// Block until transfer finishes.
-	while (!(USISR & (1 << USIOIF)));
-
-	// Return received byte.
-	return USIDR;
-}
-
-void spi_enable(void)
-{
-	// Enable SPI output.
-	DDRB	= 0x02;
-	PORTB	= 0x08;
-}
-
-void spi_disable(void)
-{
-	// Disable SPI output, set to high impedance in order to not affect the shared SPI bus.
-	DDRB	= 0x00;
-	PORTB	= 0x00;
-}
+#include "spi.h"
 
 uint16_t translate(uint16_t x)
 {
@@ -95,8 +62,8 @@ int main(void)
 		if (!(PINB & 0x08))
 		{
 			spi_enable();
-			spi_transfer(translatedButtonState >> 8);
-			spi_transfer(translatedButtonState & 0xff);
+			spi_transfer8(translatedButtonState >> 8);
+			spi_transfer8(translatedButtonState & 0xff);
 			spi_disable();
 		}
 
