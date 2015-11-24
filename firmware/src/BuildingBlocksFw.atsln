@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "encoders", "encoders\encoders.cproj", "{0CAF3E33-034F-40BC-9D2E-34E3A3698D59}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "keyboard", "mini_keyboard\keyboard.cproj", "{B4C0FF35-FCAE-465A-8029-9348B00DA8A5}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "pots", "pots\pots.cproj", "{1B536C29-BCA7-4279-8C2C-8189A1C667B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CAF3E33-034F-40BC-9D2E-34E3A3698D59}.Debug|AVR.ActiveCfg = Debug|AVR
+		{0CAF3E33-034F-40BC-9D2E-34E3A3698D59}.Debug|AVR.Build.0 = Debug|AVR
+		{0CAF3E33-034F-40BC-9D2E-34E3A3698D59}.Release|AVR.ActiveCfg = Release|AVR
+		{0CAF3E33-034F-40BC-9D2E-34E3A3698D59}.Release|AVR.Build.0 = Release|AVR
+		{B4C0FF35-FCAE-465A-8029-9348B00DA8A5}.Debug|AVR.ActiveCfg = Debug|AVR
+		{B4C0FF35-FCAE-465A-8029-9348B00DA8A5}.Debug|AVR.Build.0 = Debug|AVR
+		{B4C0FF35-FCAE-465A-8029-9348B00DA8A5}.Release|AVR.ActiveCfg = Release|AVR
+		{B4C0FF35-FCAE-465A-8029-9348B00DA8A5}.Release|AVR.Build.0 = Release|AVR
+		{1B536C29-BCA7-4279-8C2C-8189A1C667B9}.Debug|AVR.ActiveCfg = Debug|AVR
+		{1B536C29-BCA7-4279-8C2C-8189A1C667B9}.Debug|AVR.Build.0 = Debug|AVR
+		{1B536C29-BCA7-4279-8C2C-8189A1C667B9}.Release|AVR.ActiveCfg = Release|AVR
+		{1B536C29-BCA7-4279-8C2C-8189A1C667B9}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
