@@ -6,7 +6,7 @@
  * of the BSD license.  See the LICENSE file for details.
  */
 
-// Common code for ATTiny 261A, 461A, 861A and other variations.
+// Common code for ATtiny 261A, 461A, 861A and other variations.
 
 inline void spi_init(void)
 {
