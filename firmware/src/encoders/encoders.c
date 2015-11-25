@@ -140,7 +140,7 @@ void encoder_update(void)
 	for (uint8_t j=0; j<ENCODER_COUNT; ++j)
 	{
 		uint8_t i = g_encoderMap[j];
-		s_encPrevState |= (value & 0x03) << (i*2);
+		s_encPrevState |= (value & 0x03) << (i*4);
 		value >>= 2;
 	}
 
@@ -157,12 +157,12 @@ void encoder_update(void)
 		uint8_t i = g_encoderMap[j];
 		if (s_encVal[i] > 3)
 		{
-			g_encoderValues[i] += -g_encoderPolarity[i];
+			g_encoderValues[j] += g_encoderPolarity[i];
 			s_encVal[i] = 0;
 		}
 		else if (s_encVal[i] < -3)
 		{
-			g_encoderValues[i] += g_encoderPolarity[i];
+			g_encoderValues[j] -= g_encoderPolarity[i];
 			s_encVal[i] = 0;
 		}
 	}
