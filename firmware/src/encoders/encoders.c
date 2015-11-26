@@ -10,7 +10,6 @@
 
 #include <avr/io.h>
 #include <stdbool.h>
-#include <util/delay.h>
 
 #include "spi.h"
 #include "adc.h"
@@ -38,8 +37,8 @@ void switches_update()
 	uint8_t newMask = 0;
 
 	// The switch is closed if 0 is read.
-	newMask |= ((value & (1 << SW_1_PIN)) == 0) << 3; // The rightmost << is meant for mapping the value to the correct control on the board.
-	newMask |= ((value & (1 << SW_3_PIN)) == 0) << 1;
+	newMask |= ((value & (1 << SW_1_PIN)) == 0) << 0; // The rightmost << is meant for mapping the value to the correct control on the board.
+	newMask |= ((value & (1 << SW_3_PIN)) == 0) << 2;
 
 	uint16_t adcValue = adc_read(SW_2_4_ADC_CH);
 
@@ -64,15 +63,15 @@ void switches_update()
 		down4 = true;
 	}
 
-	newMask |= down2 ? 1 << 2 : 0;
-	newMask |= down4 ? 1 : 0;
+	newMask |= down2 ? 1 << 1 : 0;
+	newMask |= down4 ? 1 << 3 : 0;
 
 	g_downMask = newMask;
 }
 
 static const uint8_t g_encoderMap[ENCODER_COUNT] =
 {
-	3, 1, 2, 0
+	0, 2, 1, 3
 };
 
 static const int8_t g_encoderPolarity[ENCODER_COUNT] =
