@@ -110,6 +110,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="adc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="adc_impl.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="spi.h">
       <SubType>compile</SubType>
     </Compile>

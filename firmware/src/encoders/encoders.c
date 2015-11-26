@@ -13,19 +13,7 @@
 #include <util/delay.h>
 
 #include "spi.h"
-
-enum
-{
-	PIN_A = 4,
-	PIN_B = 5,
-	PIN_C = 6,
-};
-
-enum
-{
-	PIN_CONFIG = 0,
-	PIN_STATE = 1,
-};
+#include "adc.h"
 
 enum
 {
@@ -33,67 +21,53 @@ enum
 	ENCODER_COUNT = 4,
 };
 
-enum
-{
-	INPUT = 0,
-	OUTPUT = 1,
-};
-
-enum
-{
-	LOW = 0,
-	HIGH = 1,
-};
-
-static int16_t g_encoderValues[ENCODER_COUNT] = { 0, 0, 0, 0 };
 static uint8_t g_downMask = 0;
+static int16_t g_encoderValues[ENCODER_COUNT] = { 0, 0, 0, 0 };
 
-static const uint8_t g_matrix[SWITCH_COUNT][2][3] = {
-	//        PIN_CONFIG              PIN_STATE
-	//    A       B       C         A     B    C
-	{ { INPUT, INPUT, OUTPUT }, { HIGH, LOW, LOW } }, // 0001
-	{ { INPUT, OUTPUT, INPUT }, { LOW, LOW, HIGH } }, // 0010
-	{ { INPUT, INPUT, OUTPUT }, { LOW, HIGH, LOW } }, // 0100
-	{ { OUTPUT, INPUT, INPUT }, { LOW, LOW, HIGH } }, // 1000
+enum
+{
+	SW_1_PIN = 4,
+	SW_3_PIN = 5,
+	SW_2_4_ADC_CH = 9,
 };
 
-static const uint8_t g_pinMap[SWITCH_COUNT] =
+void switches_update()
 {
-	PIN_A, PIN_C, PIN_B, PIN_C
-};
+	uint8_t value = PINB;
 
-static void pinMode(int pin, bool value)
-{
-	if (value) DDRB |= 1 << pin;
-	else DDRB &= ~(1 << pin);
-}
+	uint8_t newMask = 0;
 
-static void digitalWrite(int pin, bool value)
-{
-	if (value) PORTB |= 1 << pin;
-	else PORTB &= ~(1 << pin);
-}
+	// The switch is closed if 0 is read.
+	newMask |= ((value & (1 << SW_1_PIN)) == 0) << 3; // The rightmost << is meant for mapping the value to the correct control on the board.
+	newMask |= ((value & (1 << SW_3_PIN)) == 0) << 1;
 
-static bool digitalRead(int pin)
-{
-	return (PINB & (1 << pin)) != 0;
-}
+	uint16_t adcValue = adc_read(SW_2_4_ADC_CH);
 
-static bool switch_read(uint8_t sw)
-{
-	if (sw >= SWITCH_COUNT)
-		return false;
+	bool down2 = false;
+	bool down4 = false;
 
-	pinMode(PIN_A, g_matrix[sw][PIN_CONFIG][0]);
-	pinMode(PIN_B, g_matrix[sw][PIN_CONFIG][1]);
-	pinMode(PIN_C, g_matrix[sw][PIN_CONFIG][2]);
-	digitalWrite(PIN_A, g_matrix[sw][PIN_STATE][0]);
-	digitalWrite(PIN_B, g_matrix[sw][PIN_STATE][1]);
-	digitalWrite(PIN_C, g_matrix[sw][PIN_STATE][2]);
+	// These 2 switches are connected to a resistor divider network,
+	// using a single pin, so it is read as analog input, and its state
+	// is determined by checking which value range the read analog value
+	// falls to.
+	if (adcValue >= 750)
+	{
+		down2 = true;
+		down4 = true;
+	}
+	else if (adcValue >= 600)
+	{
+		down2 = true;
+	}
+	else if (adcValue >= 400)
+	{
+		down4 = true;
+	}
 
-	_delay_us(1);
+	newMask |= down2 ? 1 << 2 : 0;
+	newMask |= down4 ? 1 : 0;
 
-	return digitalRead(g_pinMap[sw]);
+	g_downMask = newMask;
 }
 
 static const uint8_t g_encoderMap[ENCODER_COUNT] =
@@ -106,7 +80,7 @@ static const int8_t g_encoderPolarity[ENCODER_COUNT] =
 	1, 1, 1, -1
 };
 
-void encoder_update(void)
+void encoders_update(void)
 {
 	// All the possible encoder states.
 	static const int8_t enc_states[16] =
@@ -168,20 +142,28 @@ void encoder_update(void)
 	}
 }
 
+void switches_init(void)
+{
+	DDRB &= ~((1 << SW_1_PIN) | (1 << SW_3_PIN)); // Configure the digital switch pins as input.
+	PORTB = (1 << SW_1_PIN) | (1 << SW_3_PIN); // Enable the internal pull-up resistors.
+}
+
 void encoders_init(void)
 {
-	DDRA = 0x00;
-	PORTA = 0xff;
+	DDRA = 0x00; // Set all PORTA pins as input.
+	PORTA = 0xff; // Enable the internal pull-up resistors.
 }
 
 int main(void)
 {
+	adc_init();
+
 	spi_init();
 	spi_disable();
 
+	switches_init();
 	encoders_init();
 
-	uint8_t enc = 0;
 	for (;;)
 	{
 		// Check the SS pin, if it is low, send the data through SPI.
@@ -196,13 +178,7 @@ int main(void)
 			spi_disable();
 		}
 
-		g_downMask &= ~(1 << enc);
-		bool val = !switch_read(enc);
-		g_downMask |= val << enc;
-
-		//g_encoderValues[enc] += encoder_update(enc);
-		encoder_update();
-
-		enc = (enc+1) % ENCODER_COUNT;
+		switches_update();
+		encoders_update();
 	}
 }
