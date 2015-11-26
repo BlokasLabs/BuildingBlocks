@@ -9,16 +9,9 @@
 #define F_CPU 8000000UL
 
 #include <avr/io.h>
-#include <util/delay.h>
 
 #include "spi.h"
-
-void adc_setup (void)
-{
-	// Set the prescaler to clock/128 & enable ADC
-	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0) | (1 << ADEN);
-	ADMUX |= 1 << REFS0;
-}
+#include "adc.h"
 
 enum { MAX_POTS = 4 };
 
@@ -29,27 +22,11 @@ static const uint8_t g_potMap[MAX_POTS] =
 
 static uint16_t g_pots[MAX_POTS];
 
-uint16_t adc_read(uint8_t pot)
-{
-	ADMUX = g_potMap[pot];
-
-	// Start the conversion
-	ADCSRA |= (1 << ADSC);
-
-	// Wait for it to finish
-	while (ADCSRA & (1 << ADSC));
-
-	uint16_t result = ADC;
-
-	return result;
-}
-
 int main(void)
 {
+	adc_init();
 	spi_init();
 	spi_disable();
-
-	adc_setup();
 
 	uint8_t pot = 0;
 	for (;;)
@@ -65,7 +42,7 @@ int main(void)
 			spi_disable();
 		}
 
-		g_pots[pot] = adc_read(pot);
+		g_pots[pot] = adc_read(g_potMap[pot]);
 		pot = (pot+1) % MAX_POTS;
 	}
 }

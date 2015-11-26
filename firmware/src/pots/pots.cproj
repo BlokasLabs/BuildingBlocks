@@ -5,7 +5,7 @@
     <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
     <ProjectGuid>{1b536c29-bca7-4279-8c2c-8189a1c667b9}</ProjectGuid>
-    <avrdevice>ATtiny261A</avrdevice>
+    <avrdevice>ATtiny461A</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
     <Language>C</Language>
@@ -43,7 +43,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <AvrGcc>
-  <avrgcc.common.Device>-mmcu=attiny261a -B "%24(PackRepoDir)\atmel\ATtiny_DFP\1.0.71\gcc\dev\attiny261a"</avrgcc.common.Device>
+  <avrgcc.common.Device>-mmcu=attiny461a -B "%24(PackRepoDir)\atmel\ATtiny_DFP\1.0.71\gcc\dev\attiny461a"</avrgcc.common.Device>
   <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
   <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
   <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
@@ -77,7 +77,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGcc>
-  <avrgcc.common.Device>-mmcu=attiny261a -B "%24(PackRepoDir)\atmel\ATtiny_DFP\1.0.71\gcc\dev\attiny261a"</avrgcc.common.Device>
+  <avrgcc.common.Device>-mmcu=attiny461a -B "%24(PackRepoDir)\atmel\ATtiny_DFP\1.0.71\gcc\dev\attiny461a"</avrgcc.common.Device>
   <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
   <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
   <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
