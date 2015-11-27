@@ -16,11 +16,11 @@
 uint16_t translate(uint16_t x)
 {
 	// Bit-shift map for the keys, results in the natural numbering:
-	// bit:  0  1  2  3  4  5  6  7  8  9 10 11 12 13
-	// note: C  C# D  D# E  F  F# G  G# A A# B  C  SHIFT
-	static const uint8_t s_keyShiftMap[14] =
+	// bit:  0  1  2  3  4  5  6  7  8  9 10 11 12 13       14
+	// note: C  C# D  D# E  F  F# G  G# A A# B  C  OCT_DOWN OCT_UP
+	static const uint8_t s_keyShiftMap[15] =
 	{
-		5, 3, 12, 8, 9, 1, 13, 10, 7, 0, 11, 6, 4, 2
+		5, 3, 12, 8, 9, 1, 13, 10, 7, 0, 11, 6, 4, 2, 14
 	};
 
 	uint16_t result = 0;
@@ -28,7 +28,7 @@ uint16_t translate(uint16_t x)
 	// Ignore the first 2 bits, the switches corresponding to them are not in the matrix.
 	x >>= 2;
 
-	for (uint8_t i=0; i<14; ++i)
+	for (uint8_t i=0; i<15; ++i)
 	{
 		// If the bit is LOW (0), the switch is down.
 		if ((x & 1) == 0)
