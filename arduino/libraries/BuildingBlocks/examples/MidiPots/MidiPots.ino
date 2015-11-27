@@ -5,7 +5,7 @@
 #include <PluggableUSB.h>
 #include <usbmidi.h>
 
-#include <spi.h>
+#include <SPI.h>
 #include <BuildingBlocks.h>
 
 Pots pots;
@@ -17,7 +17,7 @@ void setup() {
 	pots.setCallback(&onPotCallback);
 }
 
-void onPotCallback(uint8_t pot, uint16_t value) {
+void onPotCallback(void *userdata, uint8_t pot, uint16_t value) {
 	sendCC(0, pot, value >> 3);
 }
 

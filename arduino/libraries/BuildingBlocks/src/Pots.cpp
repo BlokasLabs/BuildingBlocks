@@ -10,6 +10,7 @@
 
 Pots::Pots()
 	:m_callback(NULL)
+	,m_userdata(NULL)
 {
 	for (uint8_t i=0; i<MAX_POTS; ++i)
 	{
@@ -30,9 +31,10 @@ uint16_t Pots::getValue(uint8_t pot) const
 	return 0;
 }
 
-void Pots::setCallback(void (*fptr)(uint8_t pot, uint16_t value))
+void Pots::setCallback(void (*fptr)(void *userdata, uint8_t pot, uint16_t value), void *userdata)
 {
 	m_callback = fptr;
+	m_userdata = userdata;
 }
 
 void Pots::update()
@@ -57,7 +59,7 @@ void Pots::update()
 	{
 		if (m_potValues[i] != oldValues[i])
 		{
-			(*m_callback)(i, m_potValues[i]);
+			(*m_callback)(m_userdata, i, m_potValues[i]);
 		}
 	}
 }

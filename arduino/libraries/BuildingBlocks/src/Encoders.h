@@ -33,11 +33,12 @@ public:
 	 *    void myEncoderCallback(uint8_t enc, int8_t change, bool isDown);
 	 *
 	 *  \param fptr Pointer to function which will get called when Encoder events happen. Can be set to NULL to disable the callbacks.
+	 *  \param userdata User Data which can be used to supply some context information for the call. Set to NULL if unused.
 	 *  \param enc The encoder id.
 	 *  \param change The change in encoder's value since the last time this callback was called.
 	 *  \param isDown True if the encoder for which this callback was invoked is currently pushed down.
 	 */
-	void setCallback(void (*fptr)(uint8_t enc, int8_t change, bool isDown));
+	void setCallback(void (*fptr)(void *userdata, uint8_t enc, int8_t change, bool isDown), void *userdata = NULL);
 
 protected:
 	virtual void init();
@@ -51,7 +52,8 @@ private:
 	uint8_t m_encDownMask;
 
 	/// Stores the pointer to function for event callbacks.
-	void (*m_callback)(uint8_t enc, int8_t change, bool isDown);
+	void (*m_callback)(void *userdata, uint8_t enc, int8_t change, bool isDown);
+	void *m_userdata;
 };
 
 #endif // BLOKAS_ENCODERS_H

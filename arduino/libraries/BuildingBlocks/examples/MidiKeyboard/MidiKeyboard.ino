@@ -26,7 +26,7 @@ void loop() {
 }
 
 // This will get called while executing mainboard.update(), if events were detected.
-void onKeyEvent(uint8_t key, bool isDown) {
+void onKeyEvent(void *userdata, uint8_t key, bool isDown) {
 	sendMidiNote(0, 60 + key, isDown ? 100 : 0);
 }
 

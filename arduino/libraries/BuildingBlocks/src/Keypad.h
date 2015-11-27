@@ -30,10 +30,11 @@ public:
 	 *    void myKeypadCallback(uint8_t key, bool isDown);
 	 *
 	 *  \param fptr Pointer to function which will get called when Keypad events happen. Can be set to NULL to disable the callbacks.
+	 *  \param userdata User Data which can be used to supply some context information for the call. Set to NULL if unused.
 	 *  \param key The key id.
 	 *  \param isDown True if the key for which this callback was invoked is currently pushed down.
 	 */
-	void setCallback(void (*fptr)(uint8_t key, bool isDown));
+	void setCallback(void (*fptr)(void *userdata, uint8_t key, bool isDown), void *userdata = NULL);
 
 protected:
 	virtual void init();
@@ -44,7 +45,8 @@ private:
 	uint16_t m_keyStates;
 
 	/// Stores the pointer to function for event callbacks.
-	void (*m_callback)(uint8_t key, bool isDown);
+	void (*m_callback)(void *userdata, uint8_t key, bool isDown);
+	void *m_userdata;
 };
 
 #endif // BLOKAS_KEYPAD_H

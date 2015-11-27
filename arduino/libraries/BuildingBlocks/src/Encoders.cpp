@@ -10,6 +10,7 @@
 
 Encoders::Encoders()
 	:m_callback(NULL)
+	,m_userdata(NULL)
 	,m_encDownMask(0)
 {
 	for (uint8_t i=0; i<MAX_ENCODERS; ++i)
@@ -31,9 +32,10 @@ int16_t Encoders::getValue(uint8_t enc) const
 	return 0;
 }
 
-void Encoders::setCallback(void (*fptr)(uint8_t enc, int8_t changeDirection, bool isDown))
+void Encoders::setCallback(void (*fptr)(void *userdata, uint8_t enc, int8_t changeDirection, bool isDown), void *userdata)
 {
 	m_callback = fptr;
+	m_userdata = userdata;
 }
 
 void Encoders::update()
@@ -64,7 +66,7 @@ void Encoders::update()
 	{
 		if (m_encValues[i] != oldValues[i] || (downChanges&1))
 		{
-			(*m_callback)(i, m_encValues[i] - oldValues[i], (m_encDownMask & (1 << i)) != 0);
+			(*m_callback)(m_userdata, i, m_encValues[i] - oldValues[i], (m_encDownMask & (1 << i)) != 0);
 		}
 		downChanges >>= 1;
 	}

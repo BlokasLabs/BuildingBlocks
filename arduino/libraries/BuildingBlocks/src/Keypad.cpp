@@ -11,6 +11,7 @@
 Keypad::Keypad()
 	:m_keyStates(0)
 	,m_callback(NULL)
+	,m_userdata(NULL)
 {
 }
 
@@ -37,7 +38,7 @@ void Keypad::update()
 	{
 		if (changes & 1)
 		{
-			(*m_callback)(i, isKeyDown(i));
+			(*m_callback)(m_userdata, i, isKeyDown(i));
 		}
 
 		changes >>= 1;
@@ -55,7 +56,8 @@ bool Keypad::isKeyDown(uint8_t key) const
 	return getKeyStates() & (1 << key);
 }
 
-void Keypad::setCallback(void (*fptr)(uint8_t key, bool isDown))
+void Keypad::setCallback(void (*fptr)(void *userdata, uint8_t key, bool isDown), void *userdata)
 {
 	m_callback = fptr;
+	m_userdata = userdata;
 }

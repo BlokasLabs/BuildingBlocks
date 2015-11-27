@@ -33,7 +33,7 @@ public:
 	 *  \param pot The potentiometer id.
 	 *  \param value The absolute value of the potentiometer.
 	 */
-	void setCallback(void (*fptr)(uint8_t pot, uint16_t value));
+	void setCallback(void (*fptr)(void *userdata, uint8_t pot, uint16_t value), void *userdata = NULL);
 
 protected:
 	virtual void init();
@@ -44,7 +44,8 @@ private:
 	uint16_t m_potValues[MAX_POTS];
 
 	/// Stores the pointer to function for event callbacks.
-	void (*m_callback)(uint8_t pot, uint16_t value);
+	void (*m_callback)(void *userdata, uint8_t pot, uint16_t value);
+	void *m_userdata;
 };
 
 #endif // BLOKAS_POTS_H

@@ -26,7 +26,7 @@ void loop() {
 }
 
 // This will get called while executing mainboard.update(), if events were detected.
-void onPotEvent(uint8_t pot, uint16_t value) {
+void onPotEvent(void *userdata, uint8_t pot, uint16_t value) {
 	sendMidiCC(0, pot, value >> 3); // Shift 3 bits to the right (equivalent of dividing by 8) in order to remap values from [0;1023] to [0;127].
 }
 

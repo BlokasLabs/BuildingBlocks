@@ -9,7 +9,7 @@
 #ifndef BLOKAS_KEYBOARD_H
 #define BLOKAS_KEYBOARD_H
 
-#include <SpiShield.h>
+#include <Keypad.h>
 
 /// Keyboard class. A specialization of Keypad.
 class Keyboard : public Keypad

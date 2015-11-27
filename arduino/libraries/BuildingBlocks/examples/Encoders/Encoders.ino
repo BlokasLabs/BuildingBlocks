@@ -32,7 +32,7 @@ int16_t clamp(int16_t value, int16_t min, int16_t max) {
 }
 
 // This will get called while executing mainboard.update(), if events were detected.
-void onEncEvent(uint8_t enc, int8_t change, bool isDown) {
+void onEncEvent(void *userdata, uint8_t enc, int8_t change, bool isDown) {
 	sendMidiCC(0, enc, clamp(encoders.getValue(enc), 0, 127)); // clamp the value between 0 and 127
 }
 
