@@ -34,9 +34,6 @@ public:
 		OctaveDown	=13,
 		OctaveUp	=14,
 	};
-
-	/// isNoteDown returns true if the key, corresponding to the passed in note, is down.
-	inline bool isNoteDown(keys_e key) const { return (getKeyStates() & (1 << key)) != 0; }
 };
 
 #endif // BLOKAS_KEYBOARD_H
