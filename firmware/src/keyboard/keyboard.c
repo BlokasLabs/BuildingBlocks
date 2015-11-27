@@ -18,7 +18,7 @@ uint16_t translate(uint16_t x)
 	// Bit-shift map for the keys, results in the natural numbering:
 	// bit:  0  1  2  3  4  5  6  7  8  9 10 11 12 13
 	// note: C  C# D  D# E  F  F# G  G# A A# B  C  SHIFT
-	static const uint16_t s_keyShiftMap[14] =
+	static const uint8_t s_keyShiftMap[14] =
 	{
 		5, 3, 12, 8, 9, 1, 13, 10, 7, 0, 11, 6, 4, 2
 	};
@@ -28,7 +28,7 @@ uint16_t translate(uint16_t x)
 	// Ignore the first 2 bits, the switches corresponding to them are not in the matrix.
 	x >>= 2;
 
-	for (uint16_t i=0; i<14; ++i)
+	for (uint8_t i=0; i<14; ++i)
 	{
 		// If the bit is LOW (0), the switch is down.
 		if ((x & 1) == 0)
@@ -61,15 +61,14 @@ int main(void)
 		if (!(PINB & 0x08))
 		{
 			spi_enable();
-			spi_transfer8(translatedButtonState >> 8);
-			spi_transfer8(translatedButtonState & 0xff);
+			spi_transfer16(translatedButtonState);
 			spi_disable();
 		}
 
 		// Set one of the column pin low, to allow current to flow.
 		PORTA = 0xff ^ (1 << (column + 4));
 
-		// Give some time for voltage change on the pin network.
+		// Give some time for voltage to change on the pin network.
 		_delay_us(10);
 
 		// Read the line of rows.
