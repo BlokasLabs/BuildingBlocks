@@ -4,7 +4,7 @@
 #include <BuildingBlocks.h>
 
 // Define an instance of Keyboard module.
-Keyboard keyboard;
+OctaveKeyboard keyboard;
 
 // Define an instance of the Mainboard module.
 Mainboard mainboard(keyboard);
@@ -17,7 +17,7 @@ void setup() {
 	mainboard.init();
 
 	// Set the function which will get called when keyboard events are detected.
-	keyboard.setCallback(&onKeyEvent);
+	keyboard.setCallback(&onNoteEvent);
 }
 
 // Just update the Mainboard in order to receive the events that are happening in the attached modules.
@@ -26,8 +26,8 @@ void loop() {
 }
 
 // This will get called while executing mainboard.update(), if events were detected.
-void onKeyEvent(void *userdata, uint8_t key, bool isDown) {
-	sendMidiNote(0, 60 + key, isDown ? 100 : 0);
+void onNoteEvent(void *userdata, uint8_t note, bool isDown) {
+	sendMidiNote(0, note, isDown ? 100 : 0);
 }
 
 // Send the 3 byte MIDI Note On / Off message through the Serial port.
