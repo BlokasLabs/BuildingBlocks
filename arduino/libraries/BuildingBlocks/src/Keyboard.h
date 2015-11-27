@@ -36,4 +36,43 @@ public:
 	};
 };
 
+/** A keyboard class which implements switching of the octaves.
+ * It also exposes key press callbacks using the actual note values.
+ */
+class OctaveKeyboard : public Keyboard
+{
+public:
+	OctaveKeyboard();
+	~OctaveKeyboard();
+
+	/// The middle C is the base note.
+	enum { BASE_NOTE = 60 };
+
+	/// Sets the current octave.
+	void setOctave(int8_t octave);
+	int8_t getOctave() const;
+
+	void setCallback(void (*fptr)(void *userdata, uint8_t note, bool isDown), void *userdata = NULL);
+
+private:
+	/** This method is used with Keyboard / Keypad class, to receive events
+	 * and to translate them.
+	 */
+	static void internalKeypadCallback(void *userdata, uint8_t key, bool isDown);
+	void handleKeypadEvent(uint8_t key, bool isDown);
+
+	uint8_t translateKeyToNote(uint8_t key) const;
+
+	void (*m_callback)(void *userdata, uint8_t note, bool isDown);
+	void *m_userdata;
+
+	/// Current octave.
+	int8_t m_octave;
+
+	/** Stores the note value played by each key. Referenced to send a
+	 * note off when the octave is changed, and the key is released.
+	 */
+	uint8_t m_notePlayed[13];
+};
+
 #endif // BLOKAS_KEYBOARD_H
