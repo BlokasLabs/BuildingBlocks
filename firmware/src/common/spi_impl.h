@@ -12,6 +12,7 @@ inline void spi_init(void)
 {
 	// Initialize to three wire mode, positive edge shift register clock.
 	USICR = (1 << USIWM0) + (1 << USICS1);
+	spi_disable();
 }
 
 inline uint8_t spi_transfer8(uint8_t val)

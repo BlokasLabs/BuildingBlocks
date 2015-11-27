@@ -158,7 +158,6 @@ int main(void)
 	adc_init();
 
 	spi_init();
-	spi_disable();
 
 	switches_init();
 	encoders_init();

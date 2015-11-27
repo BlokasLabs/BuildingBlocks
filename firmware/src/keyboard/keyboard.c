@@ -49,7 +49,6 @@ int main(void)
 	uint16_t translatedButtonState = 0;
 
 	spi_init();
-	spi_disable();
 
 	// Configure the pins used for scanning the matrix.
 	DDRA = 0xf0;

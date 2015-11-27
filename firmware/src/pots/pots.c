@@ -26,7 +26,6 @@ int main(void)
 {
 	adc_init();
 	spi_init();
-	spi_disable();
 
 	uint8_t pot = 0;
 	for (;;)
