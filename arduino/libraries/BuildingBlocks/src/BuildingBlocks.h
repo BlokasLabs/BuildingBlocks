@@ -14,7 +14,7 @@
 #include <SpiShield.h>
 #include <Mainboard.h>
 #include <Keypad.h>
-#include <MiniKeyboard.h>
+#include <Keyboard.h>
 #include <Pots.h>
 #include <Encoders.h>
 

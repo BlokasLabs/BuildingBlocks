@@ -16,8 +16,8 @@ getKeyStates	KEYWORD2
 isKeyDown		KEYWORD2
 setCallback	KEYWORD2
 
-# MiniKeyboard.h
-MiniKeyboard	KEYWORD1
+# Keyboard.h
+Keyboard	KEYWORD1
 isNoteDown	KEYWORD2
 isShiftDown	KEYWORD2
 

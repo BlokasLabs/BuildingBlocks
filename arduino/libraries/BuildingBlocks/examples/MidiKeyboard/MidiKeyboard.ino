@@ -1,10 +1,10 @@
-// MidiKeyboard example. Assumes Arduino connected to the Mainboard, and the MiniKeyboard module connected to the first port (SV1).
+// MidiKeyboard example. Assumes Arduino connected to the Mainboard, and the Keyboard module connected to the first port (SV1).
 
 #include <SPI.h>
 #include <BuildingBlocks.h>
 
-// Define an instance of MiniKeyboard module.
-MiniKeyboard keyboard;
+// Define an instance of Keyboard module.
+Keyboard keyboard;
 
 // Define an instance of the Mainboard module.
 Mainboard mainboard(keyboard);

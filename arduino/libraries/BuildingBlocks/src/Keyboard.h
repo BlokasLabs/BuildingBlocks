@@ -6,13 +6,13 @@
  * of the BSD license.  See the LICENSE file for details.
  */
 
-#ifndef BLOKAS_MINI_KEYBOARD_H
-#define BLOKAS_MINI_KEYBOARD_H
+#ifndef BLOKAS_KEYBOARD_H
+#define BLOKAS_KEYBOARD_H
 
 #include <SpiShield.h>
 
-/// MiniKeyboard class. A specialization of Keypad.
-class MiniKeyboard : public Keypad
+/// Keyboard class. A specialization of Keypad.
+class Keyboard : public Keypad
 {
 public:
 	/// Enum of all they possible keys on the module.
@@ -41,4 +41,4 @@ public:
 	inline bool isShiftDown() const { return (getKeyStates() & (1 << Shift)) != 0; }
 };
 
-#endif // BLOKAS_MINI_KEYBOARD_H
+#endif // BLOKAS_KEYBOARD_H
