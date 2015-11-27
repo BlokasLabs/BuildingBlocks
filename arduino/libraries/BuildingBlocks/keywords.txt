@@ -18,8 +18,10 @@ setCallback	KEYWORD2
 
 # Keyboard.h
 Keyboard	KEYWORD1
-isNoteDown	KEYWORD2
-isShiftDown	KEYWORD2
+OctaveKeyboard	KEYWORD1
+BASE_NOTE	LITERAL1
+setOctave	KEYWORD2
+getOctave	KEYWORD2
 
 # Encoders.h
 Encoders	KEYWORD1
