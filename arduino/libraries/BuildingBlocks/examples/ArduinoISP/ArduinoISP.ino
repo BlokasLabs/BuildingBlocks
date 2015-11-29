@@ -1,4 +1,4 @@
-// This is the same standard ArduinoISP example, with only the RESET pin set to match the one used in the Mainboard module (4).
+// This is the same standard ArduinoISP example, with only the RESET pin set to match the one used in the Mainboard module (4) and SS pins set to 1, and LEDs disabled.
 
 // ArduinoISP
 // Copyright (c) 2008-2011 Randall Bohn
@@ -73,9 +73,9 @@
 #ifndef ARDUINO_HOODLOADER2 
 
 #define RESET     4 // Use BuildingBlocks MainBoard specific pin for reseting the target.
-#define LED_HB    9
-#define LED_ERR   8
-#define LED_PMODE 7
+//#define LED_HB    9
+//#define LED_ERR   8
+//#define LED_PMODE 7
 
 // Uncomment following line to use the old Uno style wiring
 // (using pin 11, 12 and 13 instead of the SPI header) on Leonardo, Due...
@@ -222,13 +222,19 @@ static BitBangedSPI SPI;
 void setup() {
   SERIAL.begin(BAUDRATE);
 
-  pinMode(LED_PMODE, OUTPUT);
-  pulse(LED_PMODE, 2);
-  pinMode(LED_ERR, OUTPUT);
-  pulse(LED_ERR, 2);
-  pinMode(LED_HB, OUTPUT);
-  pulse(LED_HB, 2);
+  //pinMode(LED_PMODE, OUTPUT);
+  //pulse(LED_PMODE, 2);
+  //pinMode(LED_ERR, OUTPUT);
+  //pulse(LED_ERR, 2);
+  //pinMode(LED_HB, OUTPUT);
+  //pulse(LED_HB, 2);
 
+  pinMode(5, OUTPUT); digitalWrite(5, HIGH);
+  pinMode(6, OUTPUT); digitalWrite(6, HIGH);
+  pinMode(7, OUTPUT); digitalWrite(7, HIGH);
+  pinMode(8, OUTPUT); digitalWrite(8, HIGH);
+  pinMode(9, OUTPUT); digitalWrite(9, HIGH);
+  pinMode(10,OUTPUT); digitalWrite(10,HIGH);
 }
 
 int error = 0;
@@ -269,7 +275,7 @@ void heartbeat() {
   if (hbval > 192) hbdelta = -hbdelta;
   if (hbval < 32) hbdelta = -hbdelta;
   hbval += hbdelta;
-  analogWrite(LED_HB, hbval);
+  //analogWrite(LED_HB, hbval);
 }
 
 static bool rst_active_high;
@@ -280,17 +286,17 @@ void reset_target(bool reset) {
 
 void loop(void) {
   // is pmode active?
-  if (pmode) {
-    digitalWrite(LED_PMODE, HIGH);
-  } else {
-    digitalWrite(LED_PMODE, LOW);
-  }
+  //if (pmode) {
+  //  digitalWrite(LED_PMODE, HIGH);
+  //} else {
+  //  digitalWrite(LED_PMODE, LOW);
+  //}
   // is there an error?
-  if (error) {
-    digitalWrite(LED_ERR, HIGH);
-  } else {
-    digitalWrite(LED_ERR, LOW);
-  }
+  //if (error) {
+  //  digitalWrite(LED_ERR, HIGH);
+  //} else {
+  //  digitalWrite(LED_ERR, LOW);
+  //}
 
   // light the heartbeat LED
   heartbeat();
@@ -320,9 +326,9 @@ void pulse(int pin, int times) {
 }
 
 void prog_lamp(int state) {
-  if (PROG_FLICKER) {
-    digitalWrite(LED_PMODE, state);
-  }
+  //if (PROG_FLICKER) {
+  //  digitalWrite(LED_PMODE, state);
+  //}
 }
 
 uint8_t spi_transaction(uint8_t a, uint8_t b, uint8_t c, uint8_t d) {
@@ -457,14 +463,14 @@ void flash(uint8_t hilo, unsigned int addr, uint8_t data) {
                   data);
 }
 void commit(unsigned int addr) {
-  if (PROG_FLICKER) {
-    prog_lamp(LOW);
-  }
+  //if (PROG_FLICKER) {
+  //  prog_lamp(LOW);
+  //}
   spi_transaction(0x4C, (addr >> 8) & 0xFF, addr & 0xFF, 0);
-  if (PROG_FLICKER) {
-    delay(PTIME);
-    prog_lamp(HIGH);
-  }
+  //if (PROG_FLICKER) {
+  //  delay(PTIME);
+  //  prog_lamp(HIGH);
+  //}
 }
 
 unsigned int current_page() {
