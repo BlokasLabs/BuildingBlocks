@@ -35,8 +35,7 @@ void loop() {
 	mainboard.update();
 	USBMIDI.flush();
 
-	for (int i=0; i<4; ++i)
-	{
+	for (int i=0; i<4; ++i) {
 		Serial.print(pots.getValue(i), DEC);
 		Serial.write(' ');
 	}
