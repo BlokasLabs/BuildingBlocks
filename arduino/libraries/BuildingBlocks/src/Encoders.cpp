@@ -52,13 +52,14 @@ void Encoders::update()
 	for (uint8_t i=0; i<MAX_ENCODERS; ++i)
 	{
 		m_encValues[i] = SPI.transfer16(0);
-		delayMicroseconds(50);
+		delayMicroseconds(100);
 	}
 
 	m_encDownMask = SPI.transfer(0);
 
 	SPI.endTransaction();
 	digitalWrite(getSlaveSelectPin(), 1);
+	delay(1);
 
 	uint8_t downChanges = m_encDownMask ^ oldDownMask;
 

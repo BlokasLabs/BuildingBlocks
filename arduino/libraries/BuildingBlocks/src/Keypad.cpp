@@ -31,6 +31,7 @@ void Keypad::update()
 
 	digitalWrite(getSlaveSelectPin(), 1);
 	SPI.endTransaction();
+	delay(1);
 
 	uint8_t i=0;
 	uint16_t changes = m_keyStates ^ oldStates;

@@ -76,6 +76,6 @@ void CV_2x2::update()
 	}
 
 	SPI.endTransaction();
-
 	digitalWrite(getSlaveSelectPin(), 1);
+	delay(1);
 }

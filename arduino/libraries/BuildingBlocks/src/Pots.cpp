@@ -49,11 +49,12 @@ void Pots::update()
 	for (uint8_t i=0; i<MAX_POTS; ++i)
 	{
 		m_potValues[i] = SPI.transfer16(0);
-		delayMicroseconds(50);
+		delayMicroseconds(100);
 	}
 
 	SPI.endTransaction();
 	digitalWrite(getSlaveSelectPin(), 1);
+	delay(1);
 
 	for (uint8_t i=0; m_callback && i<MAX_POTS; ++i)
 	{
