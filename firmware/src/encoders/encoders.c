@@ -165,7 +165,7 @@ int main(void)
 	for (;;)
 	{
 		// Check the SS pin, if it is low, send the data through SPI.
-		if (!(PINB & 0x08))
+		if (spi_slave_selected())
 		{
 			spi_enable();
 			for (uint8_t i=0; i<ENCODER_COUNT; ++i)

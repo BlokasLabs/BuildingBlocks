@@ -10,6 +10,7 @@
 #define BLOKAS_COMMON_SPI_H
 
 #include <avr/io.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,6 +19,8 @@ extern "C" {
 void spi_init(void);
 void spi_enable(void);
 void spi_disable(void);
+
+bool spi_slave_selected(void);
 
 uint8_t spi_transfer8(uint8_t val);
 uint16_t spi_transfer16(uint16_t val);

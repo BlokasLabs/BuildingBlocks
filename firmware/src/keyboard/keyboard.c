@@ -58,7 +58,7 @@ int main(void)
 	for (;;)
 	{
 		// Check the SS pin, if it is low, send the data through SPI.
-		if (!(PINB & 0x08))
+		if (spi_slave_selected())
 		{
 			spi_enable();
 			spi_transfer16(translatedButtonState);
