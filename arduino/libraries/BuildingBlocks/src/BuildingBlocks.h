@@ -17,5 +17,6 @@
 #include <Keyboard.h>
 #include <Pots.h>
 #include <Encoders.h>
+#include <CV.h>
 
 #endif // BLOKAS_BUILDING_BLOCKS_H

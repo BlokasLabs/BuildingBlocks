@@ -11,6 +11,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "common", "common\common.cpr
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "keyboard", "keyboard\keyboard.cproj", "{B4C0FF35-FCAE-465A-8029-9348B00DA8A5}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "cv_2x2", "cv_2x2\cv_2x2.cproj", "{6AB97C1E-AB1D-4D10-8B6F-42DC0545C53C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -33,6 +35,10 @@ Global
 		{B4C0FF35-FCAE-465A-8029-9348B00DA8A5}.Debug|AVR.Build.0 = Debug|AVR
 		{B4C0FF35-FCAE-465A-8029-9348B00DA8A5}.Release|AVR.ActiveCfg = Release|AVR
 		{B4C0FF35-FCAE-465A-8029-9348B00DA8A5}.Release|AVR.Build.0 = Release|AVR
+		{6AB97C1E-AB1D-4D10-8B6F-42DC0545C53C}.Debug|AVR.ActiveCfg = Debug|AVR
+		{6AB97C1E-AB1D-4D10-8B6F-42DC0545C53C}.Debug|AVR.Build.0 = Debug|AVR
+		{6AB97C1E-AB1D-4D10-8B6F-42DC0545C53C}.Release|AVR.ActiveCfg = Release|AVR
+		{6AB97C1E-AB1D-4D10-8B6F-42DC0545C53C}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
